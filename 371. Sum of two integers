@@ -1,0 +1,4 @@
+The negative number in python will be represented in one's complement, 
+and the value of integer in python is not restricted by bits. However, the input should ne a 32-bits signed integer, so we need a mask to 
+restricted the number to 32 bits. At the end, if the highest bit is 1, it will not output a negative integer, 
+so we shoud "xor" to get its positive number, then flip it to get the final result
