@@ -1,0 +1,8 @@
+1. The easiest way we can use is counting sort with O(n) time and O(n) space
+2. We can use two pointers to solve this problem with constant space, 
+left, right, i = 0, n - 1, i, then we iterate through the array when i is less 
+than equal to right, when nums[i] == 0, it means the element is already in the 
+correct place so just move on. When nums[i] == 0, we should swap nums[left] and 
+nums[i] and move both of the pointers forward. When nums[i] == 2, we should swap
+num[i] and nums[right], after the swap, nums[i] is still possible to be 2, so we
+just move right pointer backward.
