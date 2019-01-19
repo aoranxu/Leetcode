@@ -1,0 +1,3 @@
+1. BFS
+we put the nodes into the deque layer by layer, if is is None, we use "#" to represent it, O(n) space, O(n) time
+2. DFS
