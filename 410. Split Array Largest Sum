@@ -1,0 +1,3 @@
+1. Brute Force, we can use dfs combined with top-to-down memoization
+2.Binary search, detect the first target which can split the array into 
+m groups
