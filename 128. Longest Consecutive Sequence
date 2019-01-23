@@ -1,0 +1,44 @@
+1. Hashset, use hashset to store all numbers to eliminate rpeated number. 
+Then iterate all number in the set, if num - 1 not in the set, it means, it has
+not been scanned before, it is the head of a consecutive streak, and then we use 
+a while loop to detect how many consecutive numbers of this streak in the set. The 
+time compexity O(n)
+2. Use Union Find. But I think the time complexity would be O(nlogn).
+
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) <= 1:
+            return len(nums)
+        self.parent = {}
+        self.rank = {}
+            
+        for num in nums:
+            if num not in self.parent:
+                self.parent[num] = num
+                self.rank[num] = 1
+                if num - 1 in self.parent:
+                    self.union(num - 1, num)
+                if num + 1 in self.parent:
+                    self.union(num, num + 1)
+        return max(self.rank.values())
+    
+    def union(self, a, b):
+        root_a = self.find(a)
+        root_b = self.find(b)
+        self.rank[root_a] = self.rank[root_a] + self.rank[root_b]
+        self.parent[root_b] = root_a
+            
+    def find(self, a):
+        path = []
+        while self.parent[a] != a:
+            path.append(a)
+            a = self.parent[a]
+        for p in path:
+            self.parent[p] = a
+            self.rank[p] = self.rank[a]
+        return a
+        
