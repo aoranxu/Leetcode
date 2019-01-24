@@ -1,0 +1,7 @@
+It's a NP-hard problem.
+We can build a graph and use dfs to solve this problem.
+For n digits, each digit can have k choices, so the total 
+number of possibilities should be k^n.
+Build a graph with k^n points, each point has k edges.
+The space complexity should be O(k^n), the time complexity 
+should be O(k^(k^n)).
