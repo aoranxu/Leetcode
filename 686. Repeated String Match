@@ -1,0 +1,5 @@
+A could be represented as s1 + s2
+B could be represented as (s1 + s2) * x or (s2 + s1) * x or shorter
+if B == s1s2 * x, return x
+if B == s2s1 * x, we need repeat A (x + 1) times to contain B.
+No need to check more than x + 1 times. 
