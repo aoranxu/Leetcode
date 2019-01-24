@@ -1,0 +1,4 @@
+First of all. we can use binary search to find a closest element to the target, 
+the time complexity of this step is O(logn). Then we use two pointer l and r, and 
+iterate (k - 1) times to get the other k - 1 closest elements.
+The total time complexity is O(k + logn)
