@@ -1,0 +1,8 @@
+We take nums[:i] as loop invariant, it represents nums[0,1,...,i - 1] is wiggle sorted
+when it comes to (i + 1)th iteration:
+if i is odd, then i - 1 should be even, and nums[i - 1] < nums[i - 2],
+if nums[i] < nums[i - 1], then we swap nums[i], nums[i - 1], then current nums[i - 1] should 
+be less than previous nums[i - 1], so nums[:i] is still wiggle sorted. And nums[i - 1] > nums[i]
+so nums[:i + 1] is wiggle sorted after (i + 1)th iteration.
+if i is even, we could do the similar analysis.
+So this algorithm works. The time complexity is O(n).
