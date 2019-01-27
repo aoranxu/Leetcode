@@ -1,0 +1,15 @@
+To get the minimum number of rooms we need at the same time,
+we should know how many meetings are procedeed at the same time.
+
+When a meeting starts, the required rooms will plus one,
+when a meeting ends, the required rooms should minus one.
+
+Based on that, we can build a new array to store the meeting intervals.
+The elements in the array has two features, the first one is time,
+the second one is used to decide record if if starts or ends. 
+
+Sort the array（when time of two tasks are same, the end-task will be put in the font.）
+
+Now we need to do is to iterate the array, and sum the second elements of each tuple in the array.
+
+The peak of the sum is the required number of rooms we need.
