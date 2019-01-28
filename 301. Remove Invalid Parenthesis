@@ -1,3 +1,50 @@
+Method 1:
+The time complexity should T(n) = n x C(n, n) + (n-1) x C(n, n-1) + ... + 1 x C(n, 1) = n x 2^(n-1). Based on binomial theorem
+class Solution(object):
+    def removeInvalidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        if not s:
+            return [""]
+        
+        from collections import deque
+        q = deque([s])
+        ans = []
+        visited = set()
+        visited.add(s)
+        flag = False
+        while q:
+            size = len(q)
+            for i in xrange(size):
+                ss = q.popleft()
+                if self.isValid(ss):
+                    ans.append(ss)
+                    flag = True
+                else:
+                    for j in xrange(len(ss)):
+                        new_s = ss[:j] + ss[j+1:]
+                        if new_s not in visited:
+                            q.append(new_s)
+                            visited.add(new_s)
+            if flag:
+                break
+        if flag:
+            return ans
+        return [""]
+        
+    def isValid(self, s):
+        cnt = 0
+        for c in s:
+            if cnt < 0:
+                return False
+            if c == "(":
+                cnt += 1
+            elif c == ")":
+                cnt -= 1
+        return cnt == 0
+Method 2:
 class Solution(object):
     def removeInvalidParentheses(self, s):
         """
