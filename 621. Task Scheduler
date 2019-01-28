@@ -1,0 +1,36 @@
+We use Greedy to solve this prolem. Every time when we start to schedule a task, 
+we should schedule the most taks first, to get the most frequent one, we use heap,
+whose time complexity should be O(logn). The time complexity should be Nlog(N), the space comlexity
+is O(1).
+
+class Solution(object):
+    def leastInterval(self, tasks, n):
+        """
+        :type tasks: List[str]
+        :type n: int
+        :rtype: int
+        """
+        from collections import Counter
+        from heapq import heappush, heappop
+        
+        count = Counter(tasks)
+        h = []
+        for k, v in count.items():
+            heappush(h, (-v, k))
+            
+        slots = 0
+        while h:
+            temp, i = [], 0
+            while i <= n:
+                slots += 1
+                freq, task = heappop(h)
+                if freq != -1:
+                    temp.append((freq + 1, task))
+                if not h:
+                    if temp:
+                        slots += (n - i)
+                    break
+                i += 1
+            for v, k in temp:
+                heappush(h, (v, k))
+        return slots
