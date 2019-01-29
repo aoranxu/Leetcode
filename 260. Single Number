@@ -1,0 +1,27 @@
+We should be careful that there are two different numbers which appear only once,
+the we use a variable to do xor with all numbers in the array, the result should 
+be the XOR of the two target number. And we find a bit whose value is one, and based on
+this bit, we can divide the original array into two groups. Then xor the two groups respectively
+then we can get the two target numbers.
+
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        a, b = 0, 0
+        ans = 0
+        for num in nums:
+            ans ^= num
+        mask = 1
+        while mask & ans == 0:
+            mask <<= 1
+
+        for num in nums:
+            if num & mask:
+                a ^= num
+            else:
+                b ^= num
+        
+        return [a, b]
