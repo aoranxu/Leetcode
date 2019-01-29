@@ -1,0 +1,25 @@
+The main difference between this problem and "157. Read N Characters Given Read4" 
+is that read function can be called multi[le times, so when we should memorize the 
+position in the file which we read before, so we use a queue to implement this function.
+
+from Queue import Queue
+class Solution(object):
+        
+    def read(self, buf, n):
+        """
+        :type buf: Destination buffer (List[str])
+        :type n: Maximum number of characters to read (int)
+        :rtype: The number of characters read (int)
+        """
+        idx = 0
+        while True:
+            buf4 = [""] * 4
+            r = read4(buf4)
+            if r == 0:
+                return idx
+            curr = min(n - idx, r)
+            for i in xrange(curr):
+                buf[idx] = buf4[i]
+                idx += 1
+            if curr == 0:
+                return idx
