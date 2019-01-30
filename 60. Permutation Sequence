@@ -1,0 +1,6 @@
+The algorithm that came into my mind immediately is use algorithm
+which we used in Next Permutation, so we can solve the problem with 
+O(nk) time complexity and O(1)space.
+The easiest way to do it is do a while loop, and then compare k with n 
+factorial. The complexity of this algorithm should be O(n), space complexity
+O(n).
