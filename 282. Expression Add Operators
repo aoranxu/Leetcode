@@ -1,0 +1,54 @@
+T(N) = 3T(N-1) + 3T(N-2) + ... + 3T(0)
+     = 3*(3T(N-2) + 3T(N-3) + ... + 3T(0)) + 3T(N-2) + ... + 3T(0)
+     = 3 * 4 * (T(N-2) + T(N-3) + ... + T(0))
+     = 3 * 4^2 * (T(N-3) + ... T(0))
+     = 3 * 4^(N-1)*T(0)
+So the time complexity should be O(4^N).
+
+class Solution(object):
+    def addOperators(self, num, target):
+        """
+        :type num: str
+        :type target: int
+        :rtype: List[str]
+        """
+        
+        if not num:
+            return []
+        self.ans = []
+        self.dfs(num, target, 0, 0, "")
+        return self.ans
+    
+    def dfs(self, num, target, total, prev, substr):
+        if not num:
+            if total == target:
+                self.ans.append(substr)
+            return
+        for i in xrange(1, len(num) + 1):
+            curr = int(num[:i])
+            if not substr:
+                new_total = curr
+                new_prev = curr
+                self.dfs(num[i:], target, new_total, new_prev, num[:i])
+            else:
+                for j in xrange(3):
+                    if j == 0:
+                        tmp_total = total + curr
+                        tmp_prev = curr
+                        tmp_str = substr + '+' + num[:i]
+                    elif j == 1:
+                        tmp_total = total - curr
+                        tmp_prev = -1 * curr
+                        tmp_str = substr + '-' + num[:i]
+                    else:
+                        tmp_total = total - prev + prev * curr
+                        tmp_prev = prev * curr
+                        tmp_str = substr + "*" + num[:i]
+                    self.dfs(num[i:], target, tmp_total, tmp_prev, tmp_str)
+
+            if curr == 0:
+                return
+        return
+
+ 
+        
