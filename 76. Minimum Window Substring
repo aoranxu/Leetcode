@@ -1,0 +1,62 @@
+We use two pointers to solve this problem, the time complexity is O(n)
+If we build a array with length 256 to count the frequency of characters,
+the space complexity would be O(1).
+
+class Solution(object):
+    def minWindow(self, source, target):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        from collections import Counter, defaultdict
+        if len(source) == 0 or len(target) == 0:
+            return ""
+        target_dict = Counter(target)
+        needed_char = len(target_dict)
+        source_dict = defaultdict(int)
+        
+        j = 0
+        str = ""
+        min_len = len(source) + 1
+        left = -1
+        for i in xrange(len(source)):
+            if source[i] not in target_dict:
+                continue
+            source_dict[source[i]] += 1 
+            if target_dict[source[i]] == 1:
+                needed_char -= 1 
+                if needed_char == 0:
+                    return source[i]
+            left = i 
+            j = i
+            break
+  
+        if left == -1:
+            return ""
+        for i in xrange(left, len(source)):
+            if source[i] not in target_dict:
+                continue
+
+            while j < len(source) and needed_char > 0:
+                j += 1 
+                if j == len(source):
+                    break
+                if source[j] in target_dict:
+                    source_dict[source[j]] += 1 
+                    if target_dict[source[j]] == source_dict[source[j]]:
+                        needed_char -= 1 
+                        if needed_char == 0:
+                            break
+
+            if needed_char == 0:    
+                if min_len > j - i + 1:
+                    min_len = j - i + 1
+                    str = source[i: j + 1]
+                source_dict[source[i]] -= 1
+
+                if source_dict[source[i]] < target_dict[source[i]]:
+                    needed_char += 1
+            if j > len(source):
+                break        
+        return str     
