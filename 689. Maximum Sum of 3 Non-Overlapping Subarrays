@@ -1,0 +1,47 @@
+First of all, I thought of using dfs to solve this problem, but got TLE,
+because there are many repeating processes. 
+Then DP is a good choice.
+Divide the array into three part, left, middle ,array,
+and we can easily get the maximum subarray sum at the left or right 
+of some index. 
+The time complexity hsould be O(n), n is the size of nums.
+The space complexity should be O(n - k).
+
+class Solution(object):
+    def maxSumOfThreeSubarrays(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        prefix = []
+        prefixsum = 0
+        for i in xrange(k):
+            prefixsum += nums[i]
+        prefix.append(prefixsum)
+        for i in xrange(k, len(nums)):
+            prefixsum += nums[i]
+            prefixsum -= nums[i - k]
+            prefix.append(prefixsum)
+        n = len(prefix)
+        left, right = [0] * n, [0] * n
+        leftmax_idx = 0
+        rightmax_idx = n - 1
+        for i in xrange(n):
+            if prefix[i] > prefix[leftmax_idx]:
+                leftmax_idx = i
+            left[i] = leftmax_idx
+        
+        for i in xrange(n - 1, -1, -1):
+            if prefix[i] >= prefix[rightmax_idx]:
+                rightmax_idx = i
+            right[i] = rightmax_idx
+        
+        ans = [0, 0, 0]
+        maxsum = 0
+        for i in xrange(k, n - k):
+            total = prefix[left[i - k]] + prefix[i] + prefix[right[i + k]]
+            if total > maxsum:
+                maxsum = total
+                ans = [left[i - k], i, right[i + k]]
+        return ans
