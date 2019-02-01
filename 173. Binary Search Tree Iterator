@@ -1,0 +1,51 @@
+All node will be searched once, and next() will be operated n times,
+so the average time is O(1), and stack will always stored the left subtree,
+the space complexity will be O(logn).
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class BSTIterator(object):
+
+    def __init__(self, root):
+        """
+        :type root: TreeNode
+        """
+        self.stack = []
+        self.curr = root
+        while self.curr:
+            self.stack.append(self.curr)
+            self.curr = self.curr.left
+        
+    def next(self):
+        """
+        @return the next smallest number
+        :rtype: int
+        """
+        self.curr = self.stack.pop()
+        if self.curr.right:
+            node = self.curr.right
+            while node:
+                self.stack.append(node)
+                node = node.left
+        return self.curr.val
+    
+    def hasNext(self):
+        """
+        @return whether we have a next smallest number
+        :rtype: bool
+        """
+        if not self.stack:
+            return False
+        return True
+        
+
+
+# Your BSTIterator object will be instantiated and called as such:
+# obj = BSTIterator(root)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()
