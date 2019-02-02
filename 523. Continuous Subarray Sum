@@ -1,0 +1,29 @@
+Time complexity: O(n)
+Space complexity: O(k).
+
+class Solution(object):
+    def checkSubarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        if k == 0:
+            if len(nums) >= 2:
+                for i in xrange(len(nums) - 1):
+                    if nums[i] == nums[i + 1] == 0:
+                        return True
+            return False
+        
+        rem = {0: -1}
+        prefixsum = 0
+        for i in xrange(len(nums)):
+            prefixsum += nums[i]
+            remainder = prefixsum % k
+            # print remainder
+            if remainder in rem:
+                if i - rem[remainder] >= 2:
+                    return True
+            else:
+                rem[remainder] = i
+        return False
