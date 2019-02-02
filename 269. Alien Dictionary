@@ -1,0 +1,45 @@
+Topological sort.
+Time complexity should be O(m*n), m is the number of words, n is average length of a word.
+Space complexity O(max(V, m)), v is the number of distinct characters, and every pair of continuous
+word produces at most one edge. 
+
+class Solution(object):
+    def alienOrder(self, words):
+        """
+        :type words: List[str]
+        :rtype: str
+        """
+        indegrees = {}
+        edges = {}
+        for word in words:
+            for c in word:
+                indegrees[c] = 0
+                edges[c] = []
+        
+        for i in xrange(len(words) - 1):
+            word1 = words[i]
+            word2 = words[i + 1]
+            
+            for j in xrange(min(len(word1), len(word2))):
+                if word1[j] != word2[j]:
+                    indegrees[word2[j]] += 1
+                    edges[word1[j]].append(word2[j])
+                    break
+        
+        from collections import deque
+        q = deque()
+        for c in indegrees:
+            if indegrees[c] == 0:
+                q.append(c)
+        
+        ans = []
+        while q:
+            c = q.popleft()
+            ans.append(c)
+            for edge in edges[c]:
+                indegrees[edge] -= 1
+                if indegrees[edge] == 0:
+                    q.append(edge)
+        if len(ans) != len(indegrees.keys()):
+            return ""
+        return ''.join(ans)
