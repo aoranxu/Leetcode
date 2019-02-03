@@ -1,0 +1,94 @@
+Two method: Union Find and DFS, but I haven't figured out the time complexity yet.
+1. Union Find:
+class Solution(object):
+    def accountsMerge(self, accounts):
+        """
+        :type accounts: List[List[str]]
+        :rtype: List[List[str]]
+        """
+        if len(accounts) <= 1:
+            return accounts
+        
+        self.father = {}
+        self.email_to_id = {}
+        n = len(accounts)
+        for i, acc in enumerate(accounts):
+            self.father[i] = i
+            for email in acc[1:]:
+                if email not in self.email_to_id:
+                    self.email_to_id[email] = []
+                self.email_to_id[email].append(i)
+        
+        for email in self.email_to_id:
+            id = self.email_to_id[email][0]
+            for other_id in self.email_to_id[email][1:]:
+                self.union(id, other_id)
+        
+        self.id_to_email = {}
+        for i in xrange(n):
+            root = self.find(i)
+            if root not in self.id_to_email:
+                self.id_to_email[root] = set() 
+            for email in accounts[i][1:]:
+                self.id_to_email[root].add(email)
+                
+        ans = []
+        for id in self.id_to_email:
+            name = accounts[id][0]
+            acc = [name] + sorted(list(self.id_to_email[id]))
+            ans.append(acc)
+        return ans
+        
+    def union(self, a, b):
+        root_a = self.find(a)
+        root_b = self.find(b)
+        if root_a != root_b:
+            self.father[root_b] = root_a
+    
+    def find(self, a):
+        if self.father[a] != a:
+            self.father[a] = self.find(self.father[a])
+        return self.father[a]
+        
+2. DFS:
+class Solution(object):
+    def accountsMerge(self, accounts):
+        """
+        :type accounts: List[List[str]]
+        :rtype: List[List[str]]
+        """
+#DFS:
+        if len(accounts) <= 1:
+            return accounts
+        
+        email_to_id = {}
+        for i, acc in enumerate(accounts):
+            for email in acc[1:]:
+                if email not in email_to_id:
+                    email_to_id[email] = []
+                email_to_id[email].append(i)
+        visited = [False] * len(accounts)
+        res = []
+        
+        def dfs(id, emails):
+            if visited[id]:
+                return
+            visited[id] = True
+            for email in accounts[id][1:]:
+                emails.add(email)
+                for other_id in email_to_id[email]:
+                    if other_id != i:
+                        dfs(other_id, emails)
+            return
+        
+        for i, acc in enumerate(accounts):
+            if visited[i]:
+                continue
+            name = acc[0]
+            emails = set()
+            for email in acc[1:]:
+                dfs(i, emails)
+            res.append([name] + sorted(list(emails)))   
+        return res
+        
+                
