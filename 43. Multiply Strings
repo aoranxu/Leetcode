@@ -1,0 +1,38 @@
+Time complexity O(m * n)
+Space complexity O(m + n).
+
+class Solution(object):
+    def multiply(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        if not num1 or not num2:
+            return
+        if num1 == '0' or num2 == '0':
+            return "0"
+        digits = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, \
+                  '6': 6, '7': 7, '8': 8, '9': 9}
+        
+        def strToInt(s):
+            res = 0
+            for c in s:
+                res = res * 10 + digits[c]
+            return res
+        
+        # print strToInt("1234")
+        m, n = len(num1), len(num2)
+        num1 = num1[::-1]
+        num2 = num2[::-1]
+        ans = [0] * (m + n)
+        for i in xrange(m):
+            for j in xrange(n):
+                ans[i + j] += strToInt(num1[i]) * strToInt(num2[j])
+        
+        for i in xrange(len(ans)):
+            if ans[i] > 9:
+                ans[i + 1] += ans[i] / 10
+                ans[i] %= 10
+        res = ''.join(str(n) for n in ans[::-1])
+        return str(strToInt(res))
