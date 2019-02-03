@@ -1,0 +1,51 @@
+Union Find:
+Union by rank yields a running time of O(mlogn).
+so the time complexity is O(klogk) cuz there is only
+k make-set operations and k union operations.
+
+class Solution(object):
+    def numIslands2(self, m, n, positions):
+        """
+        :type m: int
+        :type n: int
+        :type positions: List[List[int]]
+        :rtype: List[int]
+        """
+        if m == 0 or n == 0 or not positions:
+            return []
+        
+        self.islands = 0
+        visited = set()
+        self.father = {}
+        ans = []
+        for pos in positions:
+            if tuple(pos) in visited:
+                ans.append(self.islands)
+                continue
+            self.islands += 1
+            self.father[tuple(pos)] = tuple(pos)
+            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                nx = pos[0] + dx
+                ny = pos[1] + dy
+                if (nx, ny) in visited:
+                    self.union(tuple(pos), (nx, ny))
+            ans.append(self.islands)
+            visited.add(tuple(pos))
+        return ans
+                    
+    def union(self, p1, p2):
+        p1_father = self.find(p1)
+        p2_father = self.find(p2)
+        
+        if p1_father != p2_father:
+            self.father[p1_father] = p2_father
+            self.islands -= 1
+            
+    def find(self, a):
+        path = []
+        while self.father[a] != a:
+            path.append(a)
+            a = self.father[a]
+        for p in path:
+            self.father[p] = a
+        return a
