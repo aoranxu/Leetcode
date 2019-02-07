@@ -1,4 +1,5 @@
-Binary search, time complexity O(logn).
+Binary search, time complexity O(logn), but the slice will cost O(n),
+so the total time complexity is O(n).
 
 class Solution(object):
     def insert(self, intervals, newInterval):
