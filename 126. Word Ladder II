@@ -5,9 +5,10 @@ each word in the dict and the end word, then use dfs to search
 the path. Suppose current distance to the end is , we only need to seach 
 word whose distance is d - 1.
 
-Time: O(26*L*N + N), where L is average length of each word, 
-and N is the number of words in the wordList. 
-Worst case here is every word transformed happens to be in the list, 
-so each transformation needs 26 * length of word. The DFS part is just O(N). So asymptotically it's just O(L*N)
+BFS
+
+Time Complexity: O(n*26^l) -> O(n*26^l/2), l = len(word), n=|wordList|
+
+Space Complexity: O(n)
 
 Space: O(N)
