@@ -1,0 +1,27 @@
+Sort the intervals by its start.
+And use a array to record the overlapped interval,
+if the current innterval is not overlapped with the behind
+interval, the number of arrows will plus one.
+Time complexity O(nlogn).
+
+class Solution(object):
+    def findMinArrowShots(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        if not points:
+            return 0
+        points.sort()
+        behind = points[0]
+        ans = 1
+        for i in xrange(1, len(points)):
+            curr = points[i]
+            if curr[0] <= behind[1]:
+                start = max(behind[0], curr[0])
+                end = min(behind[1], curr[1])
+                behind = [start, end]
+            else:
+                ans += 1
+                behind = curr
+        return ans
