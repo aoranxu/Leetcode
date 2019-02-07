@@ -1,4 +1,4 @@
-Generally speaking, the type of string match problem, 
+1. Generally speaking, the type of string match problem, 
 we could use dynamic programming. We create a m * n 2-dimensional array here,
 dp[i][j] represents the match result of substring s[:i+1] and p[:j+1].
 The time complextiy is O(m*n), space complexity is also O(m*n).
@@ -31,3 +31,5 @@ class Solution(object):
                     if s[i - 1] == p[j - 2] or p[j - 2] == ".":
                         dp[i][j] |= dp[i - 1][j]
         return dp[-1][-1]
+        
+2. Another way of solving this problem is using top-down DFS with memoiazation.
