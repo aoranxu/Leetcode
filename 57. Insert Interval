@@ -1,0 +1,57 @@
+Binary search, time complexity O(logn).
+
+class Solution(object):
+    def insert(self, intervals, newInterval):
+        """
+        :type intervals: List[Interval]
+        :type newInterval: Interval
+        :rtype: List[Interval]
+        """
+        if not intervals:
+            return [newInterval]
+        if not newInterval:
+            return intervals
+        n = len(intervals)                
+        if newInterval.end < intervals[0].start:
+            return [newInterval] + intervals
+        if newInterval.start > intervals[-1].end:
+            return intervals + [newInterval]
+        
+        if n == 1:
+            min_start = min(intervals[0].start, newInterval.start)
+            max_end = max(intervals[0].end, newInterval.end)
+            return [Interval(min_start, max_end)]
+        
+        left = self.binarySearchLeft(intervals, newInterval)
+        right = self.binarySearchRight(intervals, newInterval)
+        print left, right
+        if left == right + 1:
+            return intervals[:left] + [newInterval] + intervals[left:]
+        else:
+            min_start = min(intervals[left].start, newInterval.start)
+            max_end = max(intervals[right].end, newInterval.end)
+            return intervals[:left] + [Interval(min_start, max_end)] + intervals[right + 1:]
+
+    def binarySearchLeft(self, intervals, newInterval):
+        left, right = 0, len(intervals) - 1
+        while left + 1 < right:
+            mid = (left + right) / 2
+            if intervals[mid].end < newInterval.start:
+                left = mid
+            else:
+                right = mid
+        if intervals[left].end >= newInterval.start:
+            return 0
+        return right
+    
+    def binarySearchRight(self, intervals, newInterval):
+        left, right = 0, len(intervals) - 1
+        while left + 1 < right:
+            mid = (left + right) / 2
+            if intervals[mid].start > newInterval.end:
+                right = mid
+            else:
+                left = mid
+        if intervals[right].start <= newInterval.end:
+            return right
+        return left
