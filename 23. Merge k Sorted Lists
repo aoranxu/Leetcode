@@ -1,0 +1,14 @@
+1. Divide and Conquer. Mergesort-like.
+n is the average length of a linked List.
+ O(nk log k) runtime, O(1) space
+
+
+2.Min Heap
+n - amount of nodes in all lists
+k - amount of lists
+
+We'll perform both heap push and heap pop operations once for each node, each of these operations take log(k) time, thus the time complexity is O(2 * n * log(k)) = O(nlog(k))
+
+Space complexity:
+At any time we store maximum k nodes in the heap, then O(k)
+
