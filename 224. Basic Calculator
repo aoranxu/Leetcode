@@ -1,0 +1,5 @@
+Use stack.
+When we met a parenthesis "(", we need to use a stack to store
+the sign before the parenthesis, this sign will have influence on the 
+add or substract operations among the parenthesis.
+The time complexity is O(n)>
