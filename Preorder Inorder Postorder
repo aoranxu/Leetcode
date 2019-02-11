@@ -1,0 +1,92 @@
+Preorder:                                      
+
+Iterative:                                                                           
+  def preorderTraversal(self, root):                  
+       # write your code here                               
+      if root is None:
+          return []
+      from collections import deque
+      q = deque([root])
+      ans = []
+      while q:
+          node = q.pop()
+          ans.append(node.val)
+          if node.right:
+              q.append(node.right)
+          if node.left:
+              q.append(node.left)
+      return ans   
+      
+Recursive:
+    def preorderTraversal(self, root):
+        # write your code here
+        if root is None:
+            return []
+        left = self.preorderTraversal(root.left)
+        right = self.preorderTraversal(root.right)
+        result = []
+        result.append(root.val)
+        result.extend(left)        
+        result.extend(right)
+        return result
+        
+ Inorder:
+ Iterative:
+     def inorderTraversal(self, root):
+        # write your code here
+        if root is None:
+            return []
+        result = []
+
+        stack = []
+        while root:
+            stack.append(root)
+            root = root.left
+        while len(stack) > 0:
+            node = stack.pop()
+            result.append(node.val)
+            if node.right is not None:
+                node = node.right
+                while node:
+                    stack.append(node)
+                    node = node.left
+        return result     
+        
+Recursive:
+    def inorderTraversal(self, root):
+        # write your code here
+        if root is None:
+            return []
+        result = []
+        left = self.inorderTraversal(root.left)
+        right = self.inorderTraversal(root.right)
+        result.extend(left)
+        result.append(root.val)
+        result.extend(right)
+        return result
+
+PostOrder:
+Iterative:
+    def postorderTraversal(self, root):
+        # write your code here
+        if root is None:
+            return []
+        from collections import deque
+        q = deque([root])
+        ans = []
+        while q:
+            node = q.pop()
+            ans.append(node.val)
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+        ans.reverse()
+        return ans
+ 
+Recursive:
+def postorderTraversal(self, root):
+        # write your code here
+        if root is None:
+            return []
+        return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
