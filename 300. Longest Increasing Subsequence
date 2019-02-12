@@ -1,0 +1,9 @@
+1. Dp, time:O(n^2), space:O(n)
+2. Binary search:
+we use a array tails to record the tail element
+of increasing sequence with different size, eg,
+rails[1] represent the last element of the size 2
+increasing sequence. When we find a position where
+tails[i - 1] < x < tails[i], we update tails[i].
+The length of the tails is what we need.
+The time: O(nlogn), space:O(n) in the worst case.
