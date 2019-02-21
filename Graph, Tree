@@ -1,0 +1,10 @@
+ A graph consists of a set of nodes (also called vertices) and edges that connect these nodes together.
+ 
+ A tree data structure can be defined recursively as a collection of nodes (starting at a root node), 
+ where each node is a data structure consisting of a value, together with a list of references to nodes (the "children"), 
+ with the constraints that no reference is duplicated, and none points to the root.
+ 
+ A binary tree has a special condition that each node can have a maximum of two children.
+ 
+ Binary Search tree exhibits a special behavior. A node's left child must have a value less than its parent's value 
+ and the node's right child must have a value greater than its parent value.
