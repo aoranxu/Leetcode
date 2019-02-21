@@ -2,3 +2,4 @@ In hashing, hash function is used to link the key and value.
 When we put a key into the hashmap, the hashcode() method will 
 be called, then hash function can find a bucket location to store
 the value
+http://www.java67.com/2017/08/top-10-java-hashmap-interview-questions.html
