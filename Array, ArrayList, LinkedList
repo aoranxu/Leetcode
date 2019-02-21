@@ -1,0 +1,17 @@
+The ArrayList class is a resizable array, which can be found in the java.util package.
+The difference between a built-in array and an ArrayList in Java, 
+is that the size of an array cannot be modified (if you want to add or remove elements to/from an array, 
+you have to create a new one). While elements can be added and removed from an ArrayList whenever you want. 
+
+Comparision between ArrayList and LinkedList:-
+1. Insertions are easy and fast in LinkedList as compared to ArrayList because there is no
+risk of resizing array and copying content to new array if array gets full which makes
+adding into ArrayList of O(n) in worst case, while adding is O(1) operation in LinkedList
+in Java. ArrayList also needs to be update its index if you insert something anywhere except
+at the end of array.
+2. Removal also better in LinkedList than ArrayList due to same reasons as insertion.
+3. LinkedList has more memory overhead than ArrayList because in ArrayList each index only
+holds actual object (data) but in case of LinkedList each node holds both data and address
+of next and previous node.
+4. Both LinkedList and ArrayList require O(n) time to find if an element is present or not. 
+However we can do Binary Search on ArrayList if it is sorted and therefore can search in O(Log n) time.
